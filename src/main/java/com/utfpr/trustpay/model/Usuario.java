@@ -1,5 +1,6 @@
 package com.utfpr.trustpay.model;
 
+import com.utfpr.trustpay.model.dtos.RegisterDTO;
 import com.utfpr.trustpay.model.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -36,10 +37,31 @@ public class Usuario implements UserDetails {
     @Column(unique = true)
     private String login;
 
+    @NotBlank(message = "Informe um cpf")
+    @Column(name = "cpf",nullable = false, unique = true)
+    @Size(max = 14, message = "O cpf deve ter no maximo 14 caracteres")
+    private String cpf;
+
+    @NotBlank(message = "Informe uma senha")
+    @Column(name = "senha",nullable = false)
+    @Size(min = 8, max = 255, message = "O nome deve ter entre 8 e 255 caracteres")
     private String senha;
+
+    @NotBlank(message = "Informe um numero de celular")
+    @Column(name = "celular",nullable = false)
+    @Size(max = 15, message = "O telefone deve ter no maximo 15 caracteres")
+    private String celular;
 
     @Column(name = "cargo",nullable = false)
     private UserRole cargo;
+
+    public Usuario(RegisterDTO dto){
+        this.nome = dto.getUsername();
+        this.cpf = dto.getCpf();
+        this.celular = dto.getCelular();
+        this.login = dto.getEmail();
+        this.senha = dto.getPassword();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
