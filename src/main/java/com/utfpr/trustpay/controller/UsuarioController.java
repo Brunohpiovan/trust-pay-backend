@@ -30,4 +30,5 @@ public class UsuarioController {
         UsuarioMenuResponseDto resposta = usuarioService.findByUsuarioMenuId(id);
         return ResponseEntity.ok(resposta);
     }
+
 }

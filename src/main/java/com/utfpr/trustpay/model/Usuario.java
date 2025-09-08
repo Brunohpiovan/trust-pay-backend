@@ -1,5 +1,6 @@
 package com.utfpr.trustpay.model;
 
+import com.utfpr.trustpay.model.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -37,10 +38,18 @@ public class Usuario implements UserDetails {
 
     private String senha;
 
+    @Column(name = "cargo",nullable = false)
+    private UserRole cargo;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
+        if (this.cargo == UserRole.FUNCIONARIO) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_CLIENTE"));
+        } else{
+            authorities.add(new SimpleGrantedAuthority("ROLE_CLIENTE"));
+        }
         return authorities;
     }
 

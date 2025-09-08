@@ -25,6 +25,7 @@ public class TokenService {
                     .withSubject(user.getLogin())
                     .withClaim("id", user.getId())
                     .withClaim("nome",user.getNome())
+                    .withClaim("roles", String.valueOf(user.getCargo()))
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
             return token;
