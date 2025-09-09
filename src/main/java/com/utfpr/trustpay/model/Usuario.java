@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -54,6 +55,9 @@ public class Usuario implements UserDetails {
 
     @Column(name = "cargo",nullable = false)
     private UserRole cargo;
+
+    @Column(name = "saldo",nullable = false)
+    public BigDecimal saldo;
 
     public Usuario(RegisterDTO dto){
         this.nome = dto.getUsername();

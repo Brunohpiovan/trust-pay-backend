@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -47,8 +48,10 @@ public class UsuarioService {
         }
 
         UsuarioMenuResponseDto resposta = new UsuarioMenuResponseDto(usuario);
-
-
         return resposta;
+    }
+
+    public BigDecimal findSaldoUsuario(Long id) {
+        return usuarioRepository.findSaldoById(id);
     }
 }

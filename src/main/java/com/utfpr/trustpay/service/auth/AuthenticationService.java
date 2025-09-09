@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -58,6 +59,7 @@ public class AuthenticationService {
        validaPorCpfeEmail(register);
        register.setSenha(encoder.encode(data.getPassword()));
        register.setCargo(UserRole.CLIENTE);
+       register.setSaldo(BigDecimal.ZERO);
        usuarioRepository.save(register);
     }
 

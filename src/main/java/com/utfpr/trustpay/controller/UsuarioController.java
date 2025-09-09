@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -28,6 +30,12 @@ public class UsuarioController {
     @GetMapping(value = "/menu/{id}")
     public ResponseEntity<?> findByUsuarioMenuId(@PathVariable Long id) {
         UsuarioMenuResponseDto resposta = usuarioService.findByUsuarioMenuId(id);
+        return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping(value = "/saldo/{id}")
+    public ResponseEntity<?> findSaldoUsuario(@PathVariable Long id) {
+        BigDecimal resposta = usuarioService.findSaldoUsuario(id);
         return ResponseEntity.ok(resposta);
     }
 
