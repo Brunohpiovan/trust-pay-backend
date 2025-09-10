@@ -1,6 +1,8 @@
 package com.utfpr.trustpay.service;
 
 import com.utfpr.trustpay.model.Usuario;
+import com.utfpr.trustpay.model.dtos.ChaveUpdateDTO;
+import com.utfpr.trustpay.model.dtos.UsuarioChavesDTO;
 import com.utfpr.trustpay.model.dtos.UsuarioCreateDTO;
 import com.utfpr.trustpay.model.dtos.UsuarioMenuResponseDto;
 import com.utfpr.trustpay.repository.UsuarioRepository;
@@ -53,5 +55,19 @@ public class UsuarioService {
 
     public BigDecimal findSaldoUsuario(Long id) {
         return usuarioRepository.findSaldoById(id);
+    }
+
+    public String findChavePixAtual(Long id){
+        return usuarioRepository.findChavePixById(id);
+    }
+
+    public UsuarioChavesDTO findChavesPix(Long id){
+        return usuarioRepository.findUsuarioChavesById(id);
+    }
+
+    public void updateChave(ChaveUpdateDTO dto){
+        Usuario usuario = usuarioRepository.findById(dto.getId()).orElseThrow(()->new RuntimeException("Usuario nao encontrado"));
+        usuario.setChavePix(dto.getChave());
+        usuarioRepository.save(usuario);
     }
 }

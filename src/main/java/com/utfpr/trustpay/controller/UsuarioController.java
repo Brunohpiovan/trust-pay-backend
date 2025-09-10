@@ -1,5 +1,7 @@
 package com.utfpr.trustpay.controller;
 
+import com.utfpr.trustpay.model.dtos.ChaveUpdateDTO;
+import com.utfpr.trustpay.model.dtos.UsuarioChavesDTO;
 import com.utfpr.trustpay.model.dtos.UsuarioCreateDTO;
 import com.utfpr.trustpay.model.dtos.UsuarioMenuResponseDto;
 import com.utfpr.trustpay.service.UsuarioService;
@@ -37,6 +39,24 @@ public class UsuarioController {
     public ResponseEntity<?> findSaldoUsuario(@PathVariable Long id) {
         BigDecimal resposta = usuarioService.findSaldoUsuario(id);
         return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping(value = "/chaveAtual/{id}")
+    public ResponseEntity<?> findChaveAtualPix(@PathVariable Long id) {
+        String resposta = usuarioService.findChavePixAtual(id);
+        return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping(value = "/chaves/{id}")
+    public ResponseEntity<?> findChavesPix(@PathVariable Long id) {
+        UsuarioChavesDTO resposta = usuarioService.findChavesPix(id);
+        return ResponseEntity.ok(resposta);
+    }
+
+    @PutMapping(value = "/updateChave")
+    public ResponseEntity<?> updateChave(@RequestBody ChaveUpdateDTO chaveUpdateDTO) {
+        usuarioService.updateChave(chaveUpdateDTO);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -49,7 +49,7 @@ public class Usuario implements UserDetails {
     private String senha;
 
     @NotBlank(message = "Informe um numero de celular")
-    @Column(name = "celular",nullable = false)
+    @Column(name = "celular",nullable = false,unique = true)
     @Size(max = 15, message = "O telefone deve ter no maximo 15 caracteres")
     private String celular;
 
@@ -58,6 +58,11 @@ public class Usuario implements UserDetails {
 
     @Column(name = "saldo",nullable = false)
     public BigDecimal saldo;
+
+    @NotBlank(message = "Informe uma chave pix")
+    @Column(name = "chavePix",nullable = false,unique = true)
+    @Size(min = 3, max = 255, message = "A chave pix deve ter entre 3 e 255 caracteres")
+    public String chavePix;
 
     public Usuario(RegisterDTO dto){
         this.nome = dto.getUsername();

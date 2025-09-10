@@ -60,6 +60,7 @@ public class AuthenticationService {
        register.setSenha(encoder.encode(data.getPassword()));
        register.setCargo(UserRole.CLIENTE);
        register.setSaldo(BigDecimal.ZERO);
+       register.setChavePix(register.getLogin());
        usuarioRepository.save(register);
     }
 
