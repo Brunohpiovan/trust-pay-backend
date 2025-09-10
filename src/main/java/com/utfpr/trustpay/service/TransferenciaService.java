@@ -1,0 +1,45 @@
+package com.utfpr.trustpay.service;
+
+import com.utfpr.trustpay.model.Transferencia;
+import com.utfpr.trustpay.model.Usuario;
+import com.utfpr.trustpay.model.dtos.TransferenciaRequestDTO;
+import com.utfpr.trustpay.model.dtos.TransferenciaResponseDTO;
+import com.utfpr.trustpay.repository.TransferenciaRepository;
+import com.utfpr.trustpay.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Service
+public class TransferenciaService {
+
+    @Autowired
+    private TransferenciaRepository transferenciaRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Transactional
+    public TransferenciaResponseDTO transferencia(TransferenciaRequestDTO transferenciaRequestDTO){
+        Usuario remetente = usuarioRepository.findById(transferenciaRequestDTO.getUserId()).orElseThrow(()->new RuntimeException("Usuario remetente nao encontrado"));
+        Usuario destinatario = usuarioRepository.findByChavePix(transferenciaRequestDTO.getChave()).orElseThrow(()-> new RuntimeException("Destinatário com a chave pix " +transferenciaRequestDTO.getChave()+ ",não encontrado."));
+        BigDecimal valorTransferencia = transferenciaRequestDTO.getValor();
+        if (remetente.getSaldo().compareTo(valorTransferencia) < 0) {
+            throw new RuntimeException("Saldo insuficiente para realizar a transferência.");
+        }
+        remetente.setSaldo(remetente.getSaldo().subtract(valorTransferencia));
+        destinatario.setSaldo(destinatario.getSaldo().add(valorTransferencia));
+        usuarioRepository.save(remetente);
+        usuarioRepository.save(destinatario);
+        Transferencia transferencia = new Transferencia();
+        transferencia.setRemetente(remetente);
+        transferencia.setDestinatario(destinatario);
+        transferencia.setValor(valorTransferencia);
+        transferencia.setDataHora(LocalDateTime.now());
+        transferenciaRepository.save(transferencia);
+        return new TransferenciaResponseDTO(transferencia);
+    }
+}
