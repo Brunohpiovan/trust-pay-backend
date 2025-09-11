@@ -14,12 +14,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransferenciaResponseDTO {
+    private Long id;
     private String nomeRemetente;
     private String nomeDestinatario;
     private BigDecimal valor;
     private LocalDateTime dataHora;
 
     public TransferenciaResponseDTO(Transferencia transferencia){
+        this.id = transferencia.getId();
         this.nomeRemetente = transferencia.getRemetente().getNome();
         this.nomeDestinatario = transferencia.getDestinatario().getNome();
         this.valor = transferencia.getValor();
