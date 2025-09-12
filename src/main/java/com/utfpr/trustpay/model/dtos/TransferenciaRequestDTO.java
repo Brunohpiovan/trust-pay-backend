@@ -15,4 +15,5 @@ public class TransferenciaRequestDTO {
     private Long userId;
     private String chave;
     private BigDecimal valor;
+    private String senha;
 }

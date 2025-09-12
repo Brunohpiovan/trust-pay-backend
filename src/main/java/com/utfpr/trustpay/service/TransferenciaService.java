@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -25,9 +26,15 @@ public class TransferenciaService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Transactional
     public TransferenciaResponseDTO transferencia(TransferenciaRequestDTO transferenciaRequestDTO){
         Usuario remetente = usuarioRepository.findById(transferenciaRequestDTO.getUserId()).orElseThrow(()->new RuntimeException("Usuario remetente nao encontrado"));
+        if (!passwordEncoder.matches(transferenciaRequestDTO.getSenha(), remetente.getSenhaTransferencia())) {
+            throw new RuntimeException("Senha incorreta!");
+        }
         Usuario destinatario = usuarioRepository.findByChavePix(transferenciaRequestDTO.getChave()).orElseThrow(()-> new RuntimeException("Destinatário com a chave pix " +transferenciaRequestDTO.getChave()+ ",não encontrado."));
         BigDecimal valorTransferencia = transferenciaRequestDTO.getValor();
         if (remetente.getSaldo().compareTo(valorTransferencia) < 0) {
