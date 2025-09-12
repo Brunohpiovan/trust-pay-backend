@@ -32,4 +32,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
     Optional<Usuario> findByChavePix(String chavePix);
 
+    @Query("SELECT CASE WHEN u.senhaTransferencia IS NULL OR u.senhaTransferencia = '' THEN false ELSE true END " +
+            "FROM Usuario u WHERE u.id = :id")
+    boolean hasSenhaTransferencia(@Param("id") Long id);
+
+
 }

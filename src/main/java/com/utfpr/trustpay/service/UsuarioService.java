@@ -70,4 +70,8 @@ public class UsuarioService {
         usuario.setChavePix(dto.getChave());
         usuarioRepository.save(usuario);
     }
+
+    public boolean verificarSenhaTransferencia(Long userId) {
+        return usuarioRepository.hasSenhaTransferencia(userId);
+    }
 }

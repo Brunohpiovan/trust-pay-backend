@@ -59,4 +59,10 @@ public class UsuarioController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/senha-transferencia/{id}")
+    public ResponseEntity<Boolean> verificarSenhaTransferencia(@PathVariable Long id) {
+        boolean existe = usuarioService.verificarSenhaTransferencia(id);
+        return ResponseEntity.ok(existe);
+    }
+
 }

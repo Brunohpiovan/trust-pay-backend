@@ -64,6 +64,11 @@ public class Usuario implements UserDetails {
     @Size(min = 3, max = 255, message = "A chave pix deve ter entre 3 e 255 caracteres")
     public String chavePix;
 
+    @NotBlank(message = "Informe uma senha de transferencia")
+    @Column(name = "senha_transferencia")
+    @Size(min = 6, max = 6, message = "A senha deve ter entre 6 e 6 caracteres")
+    private String senhaTransferencia;
+
     public Usuario(RegisterDTO dto){
         this.nome = dto.getUsername();
         this.cpf = dto.getCpf();
