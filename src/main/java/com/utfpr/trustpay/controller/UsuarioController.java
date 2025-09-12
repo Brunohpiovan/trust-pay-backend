@@ -1,10 +1,8 @@
 package com.utfpr.trustpay.controller;
 
-import com.utfpr.trustpay.model.dtos.ChaveUpdateDTO;
-import com.utfpr.trustpay.model.dtos.UsuarioChavesDTO;
-import com.utfpr.trustpay.model.dtos.UsuarioCreateDTO;
-import com.utfpr.trustpay.model.dtos.UsuarioMenuResponseDto;
+import com.utfpr.trustpay.model.dtos.*;
 import com.utfpr.trustpay.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +61,12 @@ public class UsuarioController {
     public ResponseEntity<Boolean> verificarSenhaTransferencia(@PathVariable Long id) {
         boolean existe = usuarioService.verificarSenhaTransferencia(id);
         return ResponseEntity.ok(existe);
+    }
+
+    @PostMapping("/senha-transferencia")
+    public ResponseEntity<?> salvarSenhaTransferencia(@RequestBody @Valid UsuarioSenhaTransacaoDTO dto) {
+        usuarioService.salvarSenhaTransferencia(dto);
+        return ResponseEntity.ok().build();
     }
 
 }

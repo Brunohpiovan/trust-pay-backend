@@ -1,11 +1,9 @@
 package com.utfpr.trustpay.service;
 
 import com.utfpr.trustpay.model.Usuario;
-import com.utfpr.trustpay.model.dtos.ChaveUpdateDTO;
-import com.utfpr.trustpay.model.dtos.UsuarioChavesDTO;
-import com.utfpr.trustpay.model.dtos.UsuarioCreateDTO;
-import com.utfpr.trustpay.model.dtos.UsuarioMenuResponseDto;
+import com.utfpr.trustpay.model.dtos.*;
 import com.utfpr.trustpay.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -73,5 +71,19 @@ public class UsuarioService {
 
     public boolean verificarSenhaTransferencia(Long userId) {
         return usuarioRepository.hasSenhaTransferencia(userId);
+    }
+
+    @Transactional
+    public void salvarSenhaTransferencia(UsuarioSenhaTransacaoDTO dto) {
+        if(!dto.getSenha().equals(dto.getSenhaConfirm())){
+            throw new RuntimeException("As senhas nao conferem");
+        }
+        Usuario usuario = usuarioRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        String hashedSenha = encoder.encode(dto.getSenha());
+        usuario.setSenhaTransferencia(hashedSenha);
+
+        usuarioRepository.save(usuario);
     }
 }

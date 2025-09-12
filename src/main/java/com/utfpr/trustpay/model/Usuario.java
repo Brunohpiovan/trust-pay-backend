@@ -66,7 +66,6 @@ public class Usuario implements UserDetails {
 
     @NotBlank(message = "Informe uma senha de transferencia")
     @Column(name = "senha_transferencia")
-    @Size(min = 6, max = 6, message = "A senha deve ter entre 6 e 6 caracteres")
     private String senhaTransferencia;
 
     public Usuario(RegisterDTO dto){
