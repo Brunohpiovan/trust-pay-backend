@@ -27,7 +27,6 @@ public class TransferenciaController {
     @GetMapping("/extratos")
     public Page<TransferenciaResponseDTO> findAllExtrato(@RequestParam Long userId,
                                                          @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-
         return transferenciaService.findAllExtrato(userId, pageable);
     }
 }
