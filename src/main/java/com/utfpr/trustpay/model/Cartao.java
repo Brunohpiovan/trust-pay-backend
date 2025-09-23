@@ -25,10 +25,8 @@ public class Cartao {
     @Column(nullable = false, length = 100)
     private String nomeTitular;
 
-    @Column(nullable = false, length = 20)
-    private String bandeira;
-
-    private LocalDate validade;
+    @Column(name = "validade", nullable = false, length = 5)
+    private String validade;
 
     private String cvv;
 
