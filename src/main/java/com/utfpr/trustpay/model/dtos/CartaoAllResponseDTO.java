@@ -14,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CartaoAllResponseDTO {
 
+    private Long id;
     private String numero;
     private String nomeTitular;
     private String validade;
