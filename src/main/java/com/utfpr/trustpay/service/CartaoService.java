@@ -2,11 +2,16 @@ package com.utfpr.trustpay.service;
 
 import com.utfpr.trustpay.model.Cartao;
 import com.utfpr.trustpay.model.Usuario;
+import com.utfpr.trustpay.model.dtos.CartaoAllResponseDTO;
 import com.utfpr.trustpay.model.dtos.CartaoRequestDTO;
 import com.utfpr.trustpay.repository.CartaoRepository;
 import com.utfpr.trustpay.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CartaoService {
@@ -32,5 +37,9 @@ public class CartaoService {
         cartao.setCvv(dto.getCvv());
         cartao.setValidade(dto.getValidade());
         return cartao;
+    }
+
+    public List<CartaoAllResponseDTO> findAllByUserId(Long userId) {
+        return cartaoRepository.findAllByUsuarioId(userId);
     }
 }

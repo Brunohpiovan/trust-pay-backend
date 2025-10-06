@@ -13,6 +13,5 @@ import java.util.List;
 public interface TransferenciaRepository extends JpaRepository<Transferencia,Long> {
     List<TransferenciaResponseDTO> findByRemetenteIdOrDestinatarioId(Long remetenteId, Long destinatarioId);
 
-
     Page<TransferenciaResponseDTO> findByRemetenteIdOrDestinatarioId(Long remetenteId, Long destinatarioId, Pageable pageable);
 }
