@@ -61,4 +61,18 @@ public class CartaoService {
         Cartao cartao = cartaoRepository.findById(id).orElseThrow(()->new RuntimeException("Cartao nao encontrado"));
         cartaoRepository.delete(cartao);
     }
+
+    public void update(CartaoRequestDTO dto,Long id){
+        Cartao cartao = cartaoRepository.findById(id).orElseThrow(()->new RuntimeException("Cartao nao encontrado"));
+        cartaoRepository.save(dtoToCartao(cartao,dto));
+    }
+
+    private Cartao dtoToCartao(Cartao cartao,CartaoRequestDTO dto){
+        cartao.setNumero(dto.getNumero());
+        cartao.setNomeTitular(dto.getTitular());
+        cartao.setValidade(dto.getValidade());
+        cartao.setCvv(dto.getCvv());
+        cartao.setTipo(dto.getTipo());
+        return cartao;
+    }
 }

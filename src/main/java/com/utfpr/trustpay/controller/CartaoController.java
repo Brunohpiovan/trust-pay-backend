@@ -23,6 +23,12 @@ public class CartaoController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@RequestBody @Valid CartaoRequestDTO cartaoRequestDTO,@PathVariable Long id) {
+        cartaoService.update(cartaoRequestDTO,id);
+        return ResponseEntity.ok().build();
+    }
+
     @PutMapping("/bloqueio")
     public ResponseEntity<?> bloqueiaCartao(@RequestBody Long id) {
         String mensagem = cartaoService.bloqueiaCartao(id);
