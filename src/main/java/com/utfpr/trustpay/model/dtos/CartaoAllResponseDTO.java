@@ -1,8 +1,6 @@
 package com.utfpr.trustpay.model.dtos;
 
-import com.utfpr.trustpay.model.Usuario;
 import com.utfpr.trustpay.model.enums.TipoCartao;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

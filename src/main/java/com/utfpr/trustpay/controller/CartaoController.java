@@ -23,9 +23,22 @@ public class CartaoController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/bloqueio")
+    public ResponseEntity<?> bloqueiaCartao(@RequestBody Long id) {
+        String mensagem = cartaoService.bloqueiaCartao(id);
+        return ResponseEntity.ok(mensagem);
+    }
+
     @GetMapping
     public ResponseEntity<List<CartaoAllResponseDTO>> findAllCartao(@RequestParam Long userId
                                                     ) {
         return ResponseEntity.ok(cartaoService.findAllByUserId(userId));
+    }
+
+    @DeleteMapping("/apagar/{id}")
+    public ResponseEntity<?> deleteCartao(@PathVariable Long id
+    ) {
+        cartaoService.deletarCartao(id);
+        return ResponseEntity.ok().build();
     }
 }

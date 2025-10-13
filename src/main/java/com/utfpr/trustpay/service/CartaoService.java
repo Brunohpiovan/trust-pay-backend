@@ -42,4 +42,23 @@ public class CartaoService {
     public List<CartaoAllResponseDTO> findAllByUserId(Long userId) {
         return cartaoRepository.findAllByUsuarioId(userId);
     }
+
+    public String bloqueiaCartao(Long cartaoId){
+        Cartao cartao = cartaoRepository.findById(cartaoId).orElseThrow(()->new RuntimeException("Cartao nao encontrado"));
+        String mensagem;
+        if(cartao.getBloqueado().equals(Boolean.TRUE)){
+            cartao.setBloqueado(Boolean.FALSE);
+            mensagem = "Cartão desbloqueado com sucesso!";
+        }else{
+            cartao.setBloqueado(Boolean.TRUE);
+            mensagem = "Cartão bloqueado com sucesso!";
+        }
+        cartaoRepository.save(cartao);
+        return mensagem;
+    }
+
+    public void deletarCartao(Long id){
+        Cartao cartao = cartaoRepository.findById(id).orElseThrow(()->new RuntimeException("Cartao nao encontrado"));
+        cartaoRepository.delete(cartao);
+    }
 }
