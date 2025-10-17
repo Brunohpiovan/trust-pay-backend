@@ -32,6 +32,12 @@ public class UsuarioService {
         usuarioRepository.save(user);
     }
 
+    public UsuarioByIdDTO findById(Long id){
+        UsuarioByIdDTO usuario = usuarioRepository.findUsuarioById(id).orElseThrow(() ->
+                new UsernameNotFoundException("Usuário não encontrado"));
+        return usuario;
+    }
+
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
     }

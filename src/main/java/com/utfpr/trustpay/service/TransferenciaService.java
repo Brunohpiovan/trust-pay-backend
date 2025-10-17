@@ -35,7 +35,7 @@ public class TransferenciaService {
         if (!passwordEncoder.matches(transferenciaRequestDTO.getSenha(), remetente.getSenhaTransferencia())) {
             throw new RuntimeException("Senha incorreta!");
         }
-        Usuario destinatario = usuarioRepository.findByChavePix(transferenciaRequestDTO.getChave()).orElseThrow(()-> new RuntimeException("Destinatário com a chave pix " +transferenciaRequestDTO.getChave()+ ",não encontrado."));
+        Usuario destinatario = usuarioRepository.findByChavePix(transferenciaRequestDTO.getChave()).orElseThrow(()-> new RuntimeException("Destinatário com a chave pix '" +transferenciaRequestDTO.getChave()+ "', não encontrado."));
         BigDecimal valorTransferencia = transferenciaRequestDTO.getValor();
         if (remetente.getSaldo().compareTo(valorTransferencia) < 0) {
             throw new RuntimeException("Saldo insuficiente para realizar a transferência.");

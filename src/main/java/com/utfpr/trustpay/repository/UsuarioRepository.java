@@ -1,6 +1,7 @@
 package com.utfpr.trustpay.repository;
 
 import com.utfpr.trustpay.model.Usuario;
+import com.utfpr.trustpay.model.dtos.UsuarioByIdDTO;
 import com.utfpr.trustpay.model.dtos.UsuarioChavesDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -35,6 +36,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     @Query("SELECT CASE WHEN u.senhaTransferencia IS NULL OR u.senhaTransferencia = '' THEN false ELSE true END " +
             "FROM Usuario u WHERE u.id = :id")
     boolean hasSenhaTransferencia(@Param("id") Long id);
+
+    @Query("SELECT new com.utfpr.trustpay.model.dtos.UsuarioByIdDTO(u.nome, u.login, u.cpf, u.celular) " +
+            "FROM Usuario u WHERE u.id = :id")
+    Optional<UsuarioByIdDTO> findUsuarioById(@Param("id") Long id);
 
 
 }
