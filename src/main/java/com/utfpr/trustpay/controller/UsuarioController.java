@@ -34,26 +34,22 @@ public class UsuarioController {
 
     @GetMapping(value = "/menu/{id}")
     public ResponseEntity<?> findByUsuarioMenuId(@PathVariable Long id) {
-        UsuarioMenuResponseDto resposta = usuarioService.findByUsuarioMenuId(id);
-        return ResponseEntity.ok(resposta);
+        return ResponseEntity.ok(usuarioService.findByUsuarioMenuId(id));
     }
 
     @GetMapping(value = "/saldo/{id}")
     public ResponseEntity<?> findSaldoUsuario(@PathVariable Long id) {
-        BigDecimal resposta = usuarioService.findSaldoUsuario(id);
-        return ResponseEntity.ok(resposta);
+        return ResponseEntity.ok(usuarioService.findSaldoUsuario(id));
     }
 
     @GetMapping(value = "/chaveAtual/{id}")
     public ResponseEntity<?> findChaveAtualPix(@PathVariable Long id) {
-        String resposta = usuarioService.findChavePixAtual(id);
-        return ResponseEntity.ok(resposta);
+        return ResponseEntity.ok(usuarioService.findChavePixAtual(id));
     }
 
     @GetMapping(value = "/chaves/{id}")
     public ResponseEntity<?> findChavesPix(@PathVariable Long id) {
-        UsuarioChavesDTO resposta = usuarioService.findChavesPix(id);
-        return ResponseEntity.ok(resposta);
+        return ResponseEntity.ok(usuarioService.findChavesPix(id));
     }
 
     @PutMapping(value = "/updateChave")
@@ -64,8 +60,7 @@ public class UsuarioController {
 
     @GetMapping("/senha-transferencia/{id}")
     public ResponseEntity<Boolean> verificarSenhaTransferencia(@PathVariable Long id) {
-        boolean existe = usuarioService.verificarSenhaTransferencia(id);
-        return ResponseEntity.ok(existe);
+        return ResponseEntity.ok(usuarioService.verificarSenhaTransferencia(id));
     }
 
     @PostMapping("/senha-transferencia")

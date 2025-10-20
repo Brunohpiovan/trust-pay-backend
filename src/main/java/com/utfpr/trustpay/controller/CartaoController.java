@@ -31,8 +31,7 @@ public class CartaoController {
 
     @PutMapping("/bloqueio")
     public ResponseEntity<?> bloqueiaCartao(@RequestBody Long id) {
-        String mensagem = cartaoService.bloqueiaCartao(id);
-        return ResponseEntity.ok(mensagem);
+        return ResponseEntity.ok(cartaoService.bloqueiaCartao(id));
     }
 
     @GetMapping

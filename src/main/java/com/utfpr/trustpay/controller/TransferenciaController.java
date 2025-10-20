@@ -20,8 +20,7 @@ public class TransferenciaController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody TransferenciaRequestDTO transferenciaRequestDTO) {
-        TransferenciaResponseDTO dto = transferenciaService.transferencia(transferenciaRequestDTO);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(transferenciaService.transferencia(transferenciaRequestDTO));
     }
 
     @GetMapping("/extratos")
