@@ -30,7 +30,7 @@ public class SolicitacaoEmprestimo {
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;
 
-    @Column(name = "porcentagem_sucesso", nullable = false)
+    @Transient
     private BigDecimal porcentagemSucesso;
 
 
