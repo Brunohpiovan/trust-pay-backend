@@ -1,5 +1,6 @@
 package com.utfpr.trustpay.model;
 
+import com.utfpr.trustpay.model.enums.SituacaoEmprestimo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,15 @@ public class SolicitacaoEmprestimo {
 
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;
+
+    @Column(name = "numero_parcelas", nullable = false)
+    private Integer numeroParcelas;
+
+    @Column(name = "juros", nullable = false)
+    private Double juros;
+
+    @Column(name = "situacao_emprestimo",nullable = false)
+    private SituacaoEmprestimo situacaoEmprestimo;
 
     @Transient
     private BigDecimal porcentagemSucesso;
