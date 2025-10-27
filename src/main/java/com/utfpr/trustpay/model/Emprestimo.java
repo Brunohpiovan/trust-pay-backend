@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class SolicitacaoEmprestimo {
+public class Emprestimo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,9 +53,6 @@ public class SolicitacaoEmprestimo {
         BigDecimal saldo = cliente.getSaldo();
         BigDecimal cem = new BigDecimal("100");
 
-        // Exemplo de regra:
-        // Se o saldo for igual ou maior que o valor solicitado, 100%
-        // Caso contrário, uma porcentagem proporcional
         BigDecimal porcentagem = saldo
                 .divide(valor, 2, java.math.RoundingMode.HALF_UP)
                 .multiply(cem);
