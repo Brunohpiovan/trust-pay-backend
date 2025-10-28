@@ -74,5 +74,20 @@ public class EmprestimoService {
         );
     }
 
+    public void aprovarEmprestimo(Long id){
+        Emprestimo emprestimo = emprestimoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado com o ID: " + id));
+        emprestimo.setSituacaoEmprestimo(SituacaoEmprestimo.APROVADO);
+        emprestimo.getCliente().setSaldo(emprestimo.getCliente().getSaldo().add(emprestimo.getValor()));
+        emprestimoRepository.save(emprestimo);
+    }
+
+    public void reprovarEmprestimo(Long id){
+        Emprestimo emprestimo = emprestimoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado com o ID: " + id));
+        emprestimo.setSituacaoEmprestimo(SituacaoEmprestimo.REPROVADO);
+        emprestimoRepository.save(emprestimo);
+    }
+
 
 }

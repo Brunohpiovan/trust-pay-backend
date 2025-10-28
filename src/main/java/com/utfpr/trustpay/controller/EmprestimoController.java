@@ -34,6 +34,13 @@ public class EmprestimoController {
 
     @PutMapping(value = "/aprovar/{id}")
     public ResponseEntity<?> aprovarEmprestimo(@PathVariable Long id){
+        emprestimoService.aprovarEmprestimo(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping(value = "/reprovar/{id}")
+    public ResponseEntity<?> reprovarEmprestimo(@PathVariable Long id){
+        emprestimoService.reprovarEmprestimo(id);
         return ResponseEntity.ok().build();
     }
 }
