@@ -3,6 +3,7 @@ package com.utfpr.trustpay.service;
 import com.utfpr.trustpay.model.Emprestimo;
 import com.utfpr.trustpay.model.Usuario;
 import com.utfpr.trustpay.model.dtos.EmprestimoAllDTO;
+import com.utfpr.trustpay.model.dtos.EmprestimoByIdDto;
 import com.utfpr.trustpay.model.dtos.EmprestimoRequestDTO;
 import com.utfpr.trustpay.model.enums.SituacaoEmprestimo;
 import com.utfpr.trustpay.repository.EmprestimoRepository;
@@ -48,13 +49,29 @@ public class EmprestimoService {
         return emprestimoRepository.findAllEmprestimoAberto()
                 .stream()
                 .map(e -> new EmprestimoAllDTO(
+                        e.getId(),
                         e.getCliente().getNome(),
                         e.getDataHora(),
                         e.getValor(),
                         e.getNumeroParcelas(),
-                        e.getPorcentagemSucesso() // calculado dinamicamente
+                        e.getPorcentagemSucesso()
                 ))
                 .toList();
+    }
+
+    public EmprestimoByIdDto findById(Long id) {
+        Emprestimo emprestimo = emprestimoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado com o ID: " + id));
+
+        return new EmprestimoByIdDto(
+                emprestimo.getCliente().getNome(),
+                emprestimo.getCliente().getCpf(),
+                emprestimo.getDataHora(),
+                emprestimo.getValor(),
+                emprestimo.getJuros(),
+                emprestimo.getNumeroParcelas(),
+                emprestimo.getPorcentagemSucesso()
+        );
     }
 
 

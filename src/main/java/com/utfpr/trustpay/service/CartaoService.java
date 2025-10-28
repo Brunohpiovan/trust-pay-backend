@@ -7,8 +7,6 @@ import com.utfpr.trustpay.model.dtos.CartaoRequestDTO;
 import com.utfpr.trustpay.repository.CartaoRepository;
 import com.utfpr.trustpay.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

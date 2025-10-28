@@ -12,12 +12,13 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmprestimoAllDTO {
+public class EmprestimoByIdDto {
 
-    private Long id;
     private String nomeCliente;
+    private String cpfCliente;
     private LocalDateTime dataHora;
-    private BigDecimal valor;
+    private BigDecimal valorSolicitado;
+    private Double juros;
     private Integer numeroParcelas;
     private BigDecimal porcentagemSucesso;
 }

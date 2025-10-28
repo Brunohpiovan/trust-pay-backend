@@ -26,4 +26,14 @@ public class EmprestimoController {
     public ResponseEntity<List<EmprestimoAllDTO>> listarEmprestimosAbertos() {
         return ResponseEntity.ok(emprestimoService.findAllEmprestimoAberto());
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        return ResponseEntity.ok(emprestimoService.findById(id));
+    }
+
+    @PutMapping(value = "/aprovar/{id}")
+    public ResponseEntity<?> aprovarEmprestimo(@PathVariable Long id){
+        return ResponseEntity.ok().build();
+    }
 }

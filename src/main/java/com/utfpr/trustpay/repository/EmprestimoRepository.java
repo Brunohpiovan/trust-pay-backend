@@ -1,7 +1,6 @@
 package com.utfpr.trustpay.repository;
 
 import com.utfpr.trustpay.model.Emprestimo;
-import com.utfpr.trustpay.model.dtos.EmprestimoAllDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,6 +15,5 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo,Long> {
     WHERE e.situacaoEmprestimo = com.utfpr.trustpay.model.enums.SituacaoEmprestimo.ABERTO
     """)
     List<Emprestimo> findAllEmprestimoAberto();
-
 
 }
