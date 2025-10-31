@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CartaoRepository  extends JpaRepository<Cartao,Long> {
+public interface CartaoRepository extends JpaRepository<Cartao,Long> {
 
     @Query("SELECT new com.utfpr.trustpay.model.dtos.CartaoAllResponseDTO(" +
             "c.id, c.numero, c.nomeTitular, c.validade, c.cvv, c.tipo, c.bloqueado) " +
