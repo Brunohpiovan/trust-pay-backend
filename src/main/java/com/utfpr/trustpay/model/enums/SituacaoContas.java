@@ -1,7 +1,7 @@
 package com.utfpr.trustpay.model.enums;
 
 public enum SituacaoContas {
-    ABERTO,
-    PAGO,
-    ATRASADO
+    ABERTA,
+    PAGA,
+    ATRASADA
 }

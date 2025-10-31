@@ -111,7 +111,7 @@ public class EmprestimoService {
             conta.setValor(valorParcela);
             conta.setNumeroParcela(i);
             conta.setVencimento(dataVencimento);
-            conta.setSituacaoContas(SituacaoContas.ABERTO);
+            conta.setSituacaoContas(SituacaoContas.ABERTA);
 
             contasPagarRepository.save(conta);
 
