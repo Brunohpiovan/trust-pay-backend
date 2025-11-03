@@ -8,6 +8,7 @@ import com.utfpr.trustpay.repository.ContasPagarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,7 +25,21 @@ public class ContasPagarService {
                 SituacaoContas.ABERTA,
                 SituacaoContas.ATRASADA
         );
-        return contasPagarRepository.findContasByClienteIdAndSituacoes(id, situacoes);
+
+        List<ContasPagarResponseDTO> contas = contasPagarRepository.findContasByClienteIdAndSituacoes(id, situacoes);
+
+        contas.forEach(dto -> {
+            if (dto.getVencimento().isBefore(LocalDate.now()) && dto.getSituacaoContas() == SituacaoContas.ABERTA) {
+
+                contasPagarRepository.findById(dto.getId()).ifPresent(conta -> {
+                    conta.setSituacaoContas(SituacaoContas.ATRASADA);
+                    contasPagarRepository.save(conta);
+                    dto.setSituacaoContas(SituacaoContas.ATRASADA);
+                });
+            }
+        });
+
+        return contas;
     }
 
     public ContasPagarResponseDTO buscarContaPorId(Long id) {

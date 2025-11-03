@@ -21,7 +21,7 @@ public interface ContasPagarRepository  extends JpaRepository<ContasPagar,Long> 
     FROM ContasPagar c
     WHERE c.cliente.id = :clienteId
       AND c.situacaoContas IN :situacoes
-    ORDER BY c.vencimento DESC
+    ORDER BY c.vencimento ASC
     """)
     List<ContasPagarResponseDTO> findContasByClienteIdAndSituacoes(
             @Param("clienteId") Long clienteId,
