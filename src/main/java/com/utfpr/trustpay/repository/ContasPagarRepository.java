@@ -22,11 +22,25 @@ public interface ContasPagarRepository  extends JpaRepository<ContasPagar,Long> 
     WHERE c.cliente.id = :clienteId
       AND c.situacaoContas IN :situacoes
     ORDER BY c.vencimento DESC
-""")
+    """)
     List<ContasPagarResponseDTO> findContasByClienteIdAndSituacoes(
             @Param("clienteId") Long clienteId,
             @Param("situacoes") List<com.utfpr.trustpay.model.enums.SituacaoContas> situacoes
     );
+
+    @Query("""
+    SELECT new com.utfpr.trustpay.model.dtos.ContasPagarResponseDTO(
+        c.id,
+        c.valor,
+        c.vencimento,
+        c.numeroParcela,
+        c.situacaoContas
+    )
+        FROM ContasPagar c
+        WHERE c.id = :id
+    """)
+    ContasPagarResponseDTO findContaDtoById(@Param("id") Long id);
+
 
 
 }
