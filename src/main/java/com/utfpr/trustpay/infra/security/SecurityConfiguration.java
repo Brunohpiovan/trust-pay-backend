@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST,"/auth/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/emprestimo/abertos").hasAuthority("ROLE_FUNCIONARIO")
+                        .requestMatchers(HttpMethod.GET, "/usuario/all").hasAuthority("ROLE_FUNCIONARIO")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

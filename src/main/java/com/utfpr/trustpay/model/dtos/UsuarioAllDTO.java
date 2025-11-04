@@ -1,6 +1,5 @@
 package com.utfpr.trustpay.model.dtos;
 
-import com.utfpr.trustpay.model.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioUpdateDTO {
+public class UsuarioAllDTO {
+    private Long id;
     private String nome;
     private String login;
     private String cpf;
     private String celular;
-    private String senha;
-    private String senha2;
-    private String cargo;
 }

@@ -10,12 +10,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioUpdateDTO {
+public class UsuarioAllByIdDTO {
+
+    private Long id;
     private String nome;
     private String login;
     private String cpf;
     private String celular;
-    private String senha;
-    private String senha2;
-    private String cargo;
+    private UserRole cargo;
 }

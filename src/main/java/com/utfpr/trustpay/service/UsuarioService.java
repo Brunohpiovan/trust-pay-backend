@@ -2,6 +2,7 @@ package com.utfpr.trustpay.service;
 
 import com.utfpr.trustpay.model.Usuario;
 import com.utfpr.trustpay.model.dtos.*;
+import com.utfpr.trustpay.model.enums.UserRole;
 import com.utfpr.trustpay.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,10 @@ public class UsuarioService {
 
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
+    }
+
+    public List<UsuarioAllDTO> findAllDTO() {
+        return usuarioRepository.findAllUsuariosDTO();
     }
 
     public UsuarioMenuResponseDto findByUsuarioMenuId(Long id) {
@@ -113,6 +118,13 @@ public class UsuarioService {
         if(usuarioRequest.getSenha()!=null){
             usuario.setSenha(encoder.encode(usuarioRequest.getSenha()));
         }
+        if(usuarioRequest.getCargo()!=null && !usuarioRequest.getCargo().isEmpty()){
+            if(usuarioRequest.getCargo().equals("CLIENTE")){
+                usuario.setCargo(UserRole.CLIENTE);
+            }else{
+                usuario.setCargo(UserRole.FUNCIONARIO);
+            }
+        }
         usuario.setCpf(usuarioRequest.getCpf());
         usuario.setCelular(usuarioRequest.getCelular());
         return usuario;
@@ -149,6 +161,15 @@ public class UsuarioService {
                 throw new DataIntegrityViolationException("CPF já cadastrado no sistema.");
             }
         }
+    }
+
+    public void deleteUser(Long id){
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(()->new RuntimeException("Usuario nao encontrado"));
+        usuarioRepository.delete(usuario);
+    }
+
+    public Optional<UsuarioAllByIdDTO> buscarPorId(Long id) {
+        return usuarioRepository.findUsuarioAllById(id);
     }
 
 }

@@ -1,6 +1,8 @@
 package com.utfpr.trustpay.repository;
 
 import com.utfpr.trustpay.model.Usuario;
+import com.utfpr.trustpay.model.dtos.UsuarioAllByIdDTO;
+import com.utfpr.trustpay.model.dtos.UsuarioAllDTO;
 import com.utfpr.trustpay.model.dtos.UsuarioByIdDTO;
 import com.utfpr.trustpay.model.dtos.UsuarioChavesDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -40,6 +43,16 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     @Query("SELECT new com.utfpr.trustpay.model.dtos.UsuarioByIdDTO(u.nome, u.login, u.cpf, u.celular) " +
             "FROM Usuario u WHERE u.id = :id")
     Optional<UsuarioByIdDTO> findUsuarioById(@Param("id") Long id);
+
+    @Query("SELECT new com.utfpr.trustpay.model.dtos.UsuarioAllDTO(u.id, u.nome, u.login, u.cpf, u.celular) " +
+            "FROM Usuario u")
+    List<UsuarioAllDTO> findAllUsuariosDTO();
+
+
+    @Query("SELECT new com.utfpr.trustpay.model.dtos.UsuarioAllByIdDTO(" +
+            "u.id, u.nome, u.login, u.cpf, u.celular, u.cargo) " +
+            "FROM Usuario u WHERE u.id = :id")
+    Optional<UsuarioAllByIdDTO> findUsuarioAllById(@Param("id") Long id);
 
 
 }

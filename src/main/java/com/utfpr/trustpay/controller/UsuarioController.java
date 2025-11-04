@@ -25,6 +25,11 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.findAll());
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<?> findAllDTO(){
+        return ResponseEntity.ok(usuarioService.findAll());
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         return ResponseEntity.ok(usuarioService.findById(id));
@@ -74,6 +79,20 @@ public class UsuarioController {
         usuarioService.update(id, usuarioRequest);
         return ResponseEntity.ok().build();
 
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        usuarioService.deleteUser(id);
+        return ResponseEntity.ok().build();
+
+    }
+
+    @GetMapping("/{id}/detalhes")
+    public ResponseEntity<UsuarioAllByIdDTO> buscarDetalhesPorId(@PathVariable Long id) {
+        return usuarioService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }
