@@ -64,7 +64,6 @@ public class Usuario implements UserDetails {
     @Size(min = 3, max = 255, message = "A chave pix deve ter entre 3 e 255 caracteres")
     public String chavePix;
 
-    @NotBlank(message = "Informe uma senha de transferencia")
     @Column(name = "senha_transferencia")
     private String senhaTransferencia;
 
