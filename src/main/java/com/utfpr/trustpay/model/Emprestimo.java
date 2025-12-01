@@ -37,6 +37,7 @@ public class Emprestimo {
     @Column(name = "juros", nullable = false)
     private Double juros;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "situacao_emprestimo",nullable = false)
     private SituacaoEmprestimo situacaoEmprestimo;
 

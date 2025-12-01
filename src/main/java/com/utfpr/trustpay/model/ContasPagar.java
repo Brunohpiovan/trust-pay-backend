@@ -35,6 +35,7 @@ public class ContasPagar {
     @Column(name = "numero_parcela", nullable = false)
     private Integer numeroParcela;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "situacao_contas",nullable = false)
     private SituacaoContas situacaoContas;
 }
